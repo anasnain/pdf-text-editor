@@ -1,6 +1,6 @@
 # PDF Text Editor v1.0.0
 
-A modern, web-based PDF text editor built with Next.js that allows you to edit text in PDF files directly in your browser with visual fidelity. Perfect for editing invoices, bills, and documents while preserving the original styling.
+A modern, web-based PDF text editor built with Next.js that allows you to edit text in PDF files directly in your browser with visual fidelity. Perfect for editing PDF documents while preserving the original styling.
 
 🚀 **Live Demo**: [https://pdf-text-editor-one.vercel.app](https://pdf-text-editor-one.vercel.app)
 
