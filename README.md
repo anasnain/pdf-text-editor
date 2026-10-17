@@ -1,17 +1,33 @@
-# PDF Text Editor
+# PDF Text Editor v1.0.0
 
-A modern, web-based PDF text editor built with Next.js that allows you to edit text in PDF files directly in your browser with visual fidelity.
+A modern, web-based PDF text editor built with Next.js that allows you to edit text in PDF files directly in your browser with visual fidelity. Perfect for editing invoices, bills, and documents while preserving the original styling.
 
-## Features
+## ✨ Features
 
+### Core Functionality
 - **📤 Drag & Drop Upload**: Upload PDF files via drag-and-drop or file picker
 - **📄 Multi-Page Support**: View and edit all pages in a scrollable layout
-- **✏️ In-Place Editing**: Click on any text to edit it directly with matched styling
-- **🎨 Visual Fidelity**: Automatically matches font family, size, weight, and color
-- **📝 Multi-Line Text**: Support for editing both single-line and multi-line text blocks
-- **👀 Preview Before Download**: Preview your changes before saving
+- **✏️ In-Place Editing**: Click on any text to edit it directly (edit mode always active)
 - **💾 Easy Export**: Download modified PDFs with custom filenames
-- **📱 Responsive Design**: Clean, modern UI built with Tailwind CSS
+- **👀 Preview Before Download**: Preview your changes before saving
+- **📌 Sticky Toolbar**: Save button always accessible while scrolling
+- **📋 Collapsible Edits Summary**: Track your changes with click-to-expand summary
+
+### Smart Styling & Formatting
+- **🎨 Intelligent Background Detection**: Canvas pixel sampling for accurate background colors
+- **⚪ Smart White Detection**: Automatically treats very light grays as pure white
+- **🎯 Auto Text Color**: White text on dark backgrounds, black on light (luminance-based)
+- **🔤 Bold Font Preservation**: Detects and preserves bold fonts (including embedded fonts)
+- **➡️ Auto Right-Alignment**: Dates, numbers, and IDs automatically right-aligned
+- **📏 Auto-Scaling**: Long text automatically scales to fit within original bounds
+- **🔳 Border Preservation**: Background rectangles sized to avoid covering cell borders
+- **📐 Vertical Spacing**: Proper padding from borders to prevent text touching lines
+
+### Advanced Text Handling
+- **📝 Multi-Line Text**: Support for editing both single-line and multi-line text blocks
+- **🎨 Visual Fidelity**: Matches font family, size, weight, and color from original
+- **📊 Table Cell Support**: Preserves dark backgrounds and white text in table cells
+- **🔠 Embedded Font Detection**: Recognizes bold variants (f1, f4) in embedded fonts
 
 ## Tech Stack
 
@@ -104,23 +120,39 @@ myPdfEditor/
 
 ### 1. PDF Rendering
 - Uses pdf.js to load and render PDF pages to HTML5 canvas
-- Maintains high-quality rendering with configurable scale
+- Maintains high-quality rendering with 2x scale factor
+- Stores canvas references for background color sampling
 
 ### 2. Text Extraction
 - Extracts text items with position, font, size, and color information
 - Calculates precise bounding boxes for each text element
+- Detects embedded font variants (f1, f4 = bold)
 - Groups related text items for multi-line support
 
 ### 3. Interactive Overlay
 - Renders transparent HTML elements over canvas
 - Matches extracted font properties for visual consistency
 - Provides hover and focus states for better UX
+- Edit mode always active for immediate editing
 
-### 4. PDF Export
+### 4. Background Color Detection
+- Samples 3 pixels (left, center, right) 5px above text
+- Averages RGB values for accurate color
+- Luminance > 0.85 → forced to pure white (border artifact prevention)
+- Luminance < 0.65 → dark background with white text
+
+### 5. Text Alignment Detection
+- Pattern matching for dates (DD Mon YYYY format)
+- Numbers and IDs automatically detected
+- Right-alignment applied to matching patterns
+- Preserves visual alignment with other cells
+
+### 6. PDF Export
 - Uses pdf-lib to modify the original PDF
-- Covers original text with white rectangles
-- Redraws edited text at exact coordinates
-- Supports standard PDF fonts (Helvetica, Times, Courier families)
+- Draws smart background rectangles (height-2pt, y+1pt for border preservation)
+- Embeds appropriate font (Helvetica-Bold for f1/f4 fonts)
+- Redraws edited text at exact coordinates with proper alignment
+- Auto-scales font if text is too wide (minimum 70% of original size)
 
 ## Font Support
 
