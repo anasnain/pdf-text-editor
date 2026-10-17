@@ -4,6 +4,8 @@ A modern, web-based PDF text editor built with Next.js that allows you to edit t
 
 🚀 **Live Demo**: [https://pdf-text-editor-one.vercel.app](https://pdf-text-editor-one.vercel.app)
 
+> **Note**: Test deployment preview feature
+
 ## ✨ Features
 
 ### Core Functionality
