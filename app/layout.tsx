@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'PDF Text Editor',
+  title: 'My PDF Text Editor',
   description: 'Edit text in PDF files directly in your browser',
 }
 
